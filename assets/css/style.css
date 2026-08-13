@@ -36,6 +36,22 @@
   }
   ::selection{ background:var(--accent); color:var(--white); }
 
+  /* ---------- Scrollbar ---------- */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+    border: 3px solid var(--bg);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+  }
+
   /* focus visibility */
   a:focus-visible, button:focus-visible{
     outline:2px solid var(--accent);
