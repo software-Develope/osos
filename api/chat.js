@@ -21,6 +21,10 @@ module.exports = async function handler(req, res) {
    - لنموذج التواصل: [نموذج التواصل](#contact)
    - لأعمالنا: [قسم أعمالنا](#work)
    - للخدمات: [خدماتنا](#services)
+   - روابط المطور بدر فرحان: 
+     * إنستقرام: [bh.adr](https://instagram.com/bh.adr)
+     * لينكد إن: [badrfarhan](https://www.linkedin.com/in/badrfarhan)
+     * جيت هاب: [bdrfra](https://github.com/bdrfra)
 2. أسلوب الرد: احترافي، ودود جداً، قصير ومباشر (بدون حشو). يجب ألا يتجاوز ردك فقرتين قصيرتين ليناسب نافذة الشات. استخدم رموز تعبيرية 😊🚀.
 3. التوجيه (Call to Action): وجه العميل للتواصل عبر الواتساب أو نموذج التواصل لأي تفاصيل أو تسعير.
 
