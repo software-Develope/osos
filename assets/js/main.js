@@ -194,6 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
       
       // Format text (basic markdown to HTML)
       let formattedReply = data.reply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      formattedReply = formattedReply.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" style="color: var(--primary); text-decoration: underline;">$1</a>');
       formattedReply = formattedReply.replace(/\n/g, '<br>');
       
       // Add bot message to UI
