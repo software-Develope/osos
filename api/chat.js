@@ -17,47 +17,50 @@ module.exports = async function handler(req, res) {
 - أسلوب الرد: احترافي، ودود جداً، قصير ومباشر (بدون حشو). يجب ألا يتجاوز ردك فقرتين قصيرتين ليناسب نافذة الشات. استخدم اللهجة البيضاء أو الفصحى المبسطة.
 - التوجيه (Call to Action): إذا طلب العميل تسعيراً لمشروعه، أو أراد حجز استشارة أو تفاصيل تقنية عميقة، اعتذر بلباقة عن إعطاء أسعار ثابتة لأنها تعتمد على المتطلبات، ووجهه فوراً للتواصل عبر الواتساب على الرقم +962779542615 أو تعبئة نموذج التواصل (Contact Form) في الموقع.`;
 
-    const contents = [
-      { role: 'user', parts: [{ text: systemPrompt }] },
-      { role: 'model', parts: [{ text: 'حسناً، فهمت من أنا وما هي التعليمات. سأجيب الآن بناءً عليها.' }] }
+    const messages = [
+      { role: 'system', content: systemPrompt }
     ];
 
     if (history && Array.isArray(history)) {
       history.forEach(msg => {
-        contents.push({
-          role: msg.role === 'user' ? 'user' : 'model',
-          parts: [{ text: msg.text }]
+        messages.push({
+          role: msg.role === 'user' ? 'user' : 'assistant',
+          content: msg.text
         });
       });
     }
 
-    contents.push({ role: 'user', parts: [{ text: message }] });
+    messages.push({ role: 'user', content: message });
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      console.error('GEMINI_API_KEY is not set');
+      console.error('API Key is not set');
       return res.status(500).json({ error: 'Configuration Error' });
     }
 
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': 'https://osos.dev', // Required by OpenRouter
+        'X-Title': 'Osos Dev Chatbot'       // Required by OpenRouter
+      },
       body: JSON.stringify({
-        contents: contents,
-        generationConfig: { 
-            maxOutputTokens: 250, 
-            temperature: 0.7 
-        }
+        model: 'google/gemini-1.5-flash', // You can change this to any OpenRouter model
+        messages: messages,
+        max_tokens: 250,
+        temperature: 0.7
       })
     });
 
     const data = await response.json();
     if (!response.ok) {
-        console.error('Gemini API Error:', data);
+        console.error('OpenRouter API Error:', data);
         return res.status(500).json({ error: data.error?.message || 'API Error' });
     }
 
-    const reply = data.candidates[0].content.parts[0].text;
+    const reply = data.choices[0].message.content;
     
     return res.status(200).json({ reply });
     
