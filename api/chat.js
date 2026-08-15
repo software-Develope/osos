@@ -32,31 +32,29 @@ module.exports = async function handler(req, res) {
 
     messages.push({ role: 'user', content: message });
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.MISTRAL_API_KEY;
     if (!apiKey) {
-      console.error('API Key is not set');
+      console.error('MISTRAL_API_KEY is not set');
       return res.status(500).json({ error: 'Configuration Error' });
     }
 
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://osos.dev', // Required by OpenRouter
-        'X-Title': 'Osos Dev Chatbot'       // Required by OpenRouter
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'google/gemini-1.5-flash', // You can change this to any OpenRouter model
+        model: 'mistral-large-latest', // Can be changed to mistral-small-latest or open-mistral-nemo
         messages: messages,
-        max_tokens: 250,
+        max_tokens: 300,
         temperature: 0.7
       })
     });
 
     const data = await response.json();
     if (!response.ok) {
-        console.error('OpenRouter API Error:', data);
+        console.error('Mistral API Error:', data);
         return res.status(500).json({ error: data.error?.message || 'API Error' });
     }
 
