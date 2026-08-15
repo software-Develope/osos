@@ -1090,8 +1090,8 @@
 }
 .chatbot-body {
   padding: 20px;
-  min-height: 150px;
-  max-height: 300px;
+  min-height: 300px;
+  max-height: 480px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
