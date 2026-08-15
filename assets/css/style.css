@@ -998,6 +998,7 @@
   align-items: flex-start; /* In RTL, start is the right side */
   font-family: 'IBM Plex Sans Arabic', sans-serif;
   direction: rtl;
+  pointer-events: none;
 }
 .chatbot-launcher {
   width: 60px;
@@ -1012,6 +1013,7 @@
   justify-content: center;
   box-shadow: 0 8px 24px rgba(55, 52, 152, 0.3);
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: auto;
 }
 .chatbot-launcher:hover {
   transform: scale(1.05) translateY(-5px);
@@ -1033,6 +1035,7 @@
   border: 1px solid var(--line);
   transform-origin: bottom right;
   transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: auto;
 }
 .chatbot-window.hidden {
   opacity: 0;
