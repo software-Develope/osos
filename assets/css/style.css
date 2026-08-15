@@ -1129,12 +1129,7 @@
   padding: 12px 16px;
   display: flex;
   gap: 8px;
-  overflow-x: auto;
-  white-space: nowrap;
-  scrollbar-width: none;
-}
-.chatbot-options-scroll::-webkit-scrollbar {
-  display: none;
+  flex-wrap: wrap;
 }
 .chat-option-btn {
   background: var(--white);
