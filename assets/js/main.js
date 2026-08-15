@@ -156,16 +156,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     // Add user message to UI
-    chatBody.insertAdjacentHTML('beforeend', \`<div class="chat-message user-message">\${text}</div>\`);
+    chatBody.insertAdjacentHTML('beforeend', `<div class="chat-message user-message">${text}</div>`);
     chatBody.scrollTop = chatBody.scrollHeight;
     
     // Show typing indicator
     const typingId = 'typing-' + Date.now();
-    chatBody.insertAdjacentHTML('beforeend', \`
-      <div class="typing-indicator" id="\${typingId}">
+    chatBody.insertAdjacentHTML('beforeend', `
+      <div class="typing-indicator" id="${typingId}">
         <span></span><span></span><span></span>
       </div>
-    \`);
+    `);
     chatBody.scrollTop = chatBody.scrollHeight;
     
     // Disable input
@@ -193,11 +193,11 @@ document.addEventListener("DOMContentLoaded", function() {
       }
       
       // Format text (basic markdown to HTML)
-      let formattedReply = data.reply.replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>');
-      formattedReply = formattedReply.replace(/\\n/g, '<br>');
+      let formattedReply = data.reply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      formattedReply = formattedReply.replace(/\n/g, '<br>');
       
       // Add bot message to UI
-      chatBody.insertAdjacentHTML('beforeend', \`<div class="chat-message bot-message">\${formattedReply}</div>\`);
+      chatBody.insertAdjacentHTML('beforeend', `<div class="chat-message bot-message">${formattedReply}</div>`);
       chatBody.scrollTop = chatBody.scrollHeight;
       
       // Add to history
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const typingEl = document.getElementById(typingId);
       if (typingEl) typingEl.remove();
       
-      chatBody.insertAdjacentHTML('beforeend', \`<div class="chat-message bot-message" style="background:#ff3b30;">عذراً، حدث خطأ في الاتصال. يرجى المحاولة لاحقاً أو التواصل عبر الواتساب.</div>\`);
+      chatBody.insertAdjacentHTML('beforeend', `<div class="chat-message bot-message" style="background:#ff3b30;">عذراً، حدث خطأ في الاتصال. يرجى المحاولة لاحقاً أو التواصل عبر الواتساب.</div>`);
       chatBody.scrollTop = chatBody.scrollHeight;
     } finally {
       // Enable input
