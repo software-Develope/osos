@@ -1,18 +1,13 @@
-export const config = {
-  runtime: 'edge',
-};
-
-export default async function handler(req) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405 });
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    const body = await req.json();
-    const { message, history } = body;
+    const { message, history } = req.body;
     
     if (!message) {
-      return new Response(JSON.stringify({ error: 'Message is required' }), { status: 400 });
+      return res.status(400).json({ error: 'Message is required' });
     }
 
     const systemPrompt = `أنت مساعد ذكي ولطيف لمبيعات استوديو "أسس ديف" (Osos Dev).
@@ -40,8 +35,8 @@ export default async function handler(req) {
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      console.error('GEMINI_API_KEY is not set in environment variables');
-      return new Response(JSON.stringify({ error: 'Configuration Error' }), { status: 500 });
+      console.error('GEMINI_API_KEY is not set');
+      return res.status(500).json({ error: 'Configuration Error' });
     }
 
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
@@ -59,21 +54,15 @@ export default async function handler(req) {
     const data = await response.json();
     if (!response.ok) {
         console.error('Gemini API Error:', data);
-        throw new Error(data.error?.message || 'API Error');
+        return res.status(500).json({ error: data.error?.message || 'API Error' });
     }
 
     const reply = data.candidates[0].content.parts[0].text;
     
-    return new Response(JSON.stringify({ reply }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return res.status(200).json({ reply });
     
   } catch (error) {
     console.error('Chat API error:', error);
-    return new Response(JSON.stringify({ error: 'حدث خطأ في الخادم، يرجى المحاولة لاحقاً.' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return res.status(500).json({ error: 'حدث خطأ في الخادم، يرجى المحاولة لاحقاً.' });
   }
 }
