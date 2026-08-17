@@ -188,10 +188,13 @@
 
   /* ---------- Stats strip ---------- */
   .stats{
+    position: relative; /* For the canvas absolute positioning */
     background:var(--ink);
     padding:52px 0;
   }
   .stats .wrap{
+    position: relative;
+    z-index: 1; /* Above canvas */
     display:grid; grid-template-columns:repeat(4,1fr); gap:24px; text-align:center;
   }
   .stat b{
@@ -247,7 +250,7 @@
 
   /* ---------- Process ---------- */
   section.process {
-    background: var(--bg-panel);
+    background: #e8e8ef;
     padding: 100px 0;
   }
   .process-list {
@@ -736,7 +739,40 @@
   }
 
 
-  /* ---------- Blog Styles ---------- */
+  /* ---------- Premium UI Features ---------- */
+  ::selection {
+    background: var(--accent);
+    color: var(--white);
+  }
+  ::-moz-selection {
+    background: var(--accent);
+    color: var(--white);
+  }
+
+  /* Scroll Progress */
+  #scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    z-index: 10000;
+    transition: width 0.1s ease-out;
+  }
+
+  /* Particles Canvas */
+  #particles-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* ---------- Typography & Utility ---------- */
   .blog-preview {
     background: var(--white);
     padding: 100px 0;

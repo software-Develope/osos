@@ -1,4 +1,92 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Form Submission
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Implement your form submission logic here
+            alert('شكراً لك! تم استلام رسالتك وسنتواصل معك قريباً.');
+            contactForm.reset();
+        });
+    }
+
+    // --- Premium UI Enhancements ---
+
+    // 2. Parallax & 3D Scroll for Hero
+    const heroSection = document.querySelector('.hero');
+    const heroImg = document.querySelector('.hero-visual img');
+    if (heroSection && heroImg) {
+        heroSection.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 25;
+            const y = (window.innerHeight / 2 - e.pageY) / 25;
+            heroImg.style.transform = `translateY(-16px) rotateY(${x}deg) rotateX(${y}deg) scale(1.02)`;
+        });
+        heroSection.addEventListener('mouseleave', () => {
+            heroImg.style.transform = `translateY(0px) rotateY(0deg) rotateX(0deg) scale(1)`;
+        });
+    }
+
+    // 3. Scroll Progress Indicator
+    const scrollProgress = document.getElementById('scroll-progress');
+    if (scrollProgress) {
+        window.addEventListener('scroll', () => {
+            const totalHeight = document.body.scrollHeight - window.innerHeight;
+            const progress = (window.scrollY / totalHeight) * 100;
+            scrollProgress.style.width = progress + '%';
+        });
+    }
+
+    // 4. Glowing Stars Particles
+    const canvas = document.getElementById('particles-canvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = canvas.parentElement.offsetWidth;
+        let height = canvas.height = canvas.parentElement.offsetHeight;
+        let particles = [];
+        
+        window.addEventListener('resize', () => {
+            width = canvas.width = canvas.parentElement.offsetWidth;
+            height = canvas.height = canvas.parentElement.offsetHeight;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.2; // Very slow drift
+                this.vy = (Math.random() - 0.5) * 0.2;
+                this.size = Math.random() * 1.5 + 0.5; // Small dots
+                this.alpha = Math.random() * 0.5 + 0.2; // Base glow opacity
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+        const animateParticles = () => {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        };
+        animateParticles();
+    }
+    
     // Bottom Navigation Logic
     const bottomNav = document.getElementById('bottomNav');
     if (bottomNav) {
