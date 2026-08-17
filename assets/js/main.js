@@ -3,8 +3,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const bottomNav = document.getElementById('bottomNav');
     if (bottomNav) {
         let lastScrollY = window.scrollY;
+        let isFooterVisible = false;
+
+        // Hide bottom nav when footer is visible
+        const footer = document.querySelector('footer');
+        if (footer) {
+            const footerObserver = new IntersectionObserver((entries) => {
+                isFooterVisible = entries[0].isIntersecting;
+                if (isFooterVisible) {
+                    bottomNav.classList.add('hidden');
+                } else {
+                    // Only show it if we are not at the very top
+                    if (window.scrollY > 100) {
+                        bottomNav.classList.remove('hidden');
+                    }
+                }
+            }, { rootMargin: "10px" });
+            footerObserver.observe(footer);
+        }
 
         window.addEventListener('scroll', () => {
+            if (isFooterVisible) return; // Keep hidden if footer is in view
+
             if (window.scrollY > lastScrollY && window.scrollY > 100) {
                 // Scrolling down & past header
                 bottomNav.classList.add('hidden');
