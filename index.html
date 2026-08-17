@@ -9,6 +9,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<script>
+  if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+</script>
 </head>
 <body>
   <!-- Scroll Progress Indicator -->
@@ -29,7 +34,13 @@
         <li><a href="#contact">تواصل معنا</a></li>
       </ul>
     </nav>
-    <a href="#contact" class="nav-cta">ابدأ مشروعك</a>
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <button class="theme-toggle" aria-label="تبديل الوضع الليلي">
+        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="#contact" class="nav-cta">ابدأ مشروعك</a>
+    </div>
   </div>
 </header>
 
@@ -37,7 +48,7 @@
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow"><span class="eyebrow-dot"></span> استوديو تطوير برمجي</div>
-      <h1>نضع <em>الأساس</em><br>الذي تُبنى عليه فكرتك</h1>
+      <h1><span class="reveal-mask"><span class="reveal-text">نضع <em>الأساس</em><br>الذي تُبنى عليه فكرتك</span></span></h1>
       <p>أسس استوديو برمجي يحوّل الأفكار إلى مواقع وتطبيقات متينة البنية، مدروسة التصميم، وجاهزة للنمو معك خطوة بخطوة.</p>
       <div class="hero-actions">
         <a href="#contact" class="btn-primary">احجز استشارة مجانية</a>
@@ -90,7 +101,7 @@
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow"><span class="eyebrow-dot"></span> خدماتنا</div>
-      <h2>كل ما تحتاجه لبناء حضور رقمي متين</h2>
+      <h2 class="reveal-mask"><span class="reveal-text">كل ما تحتاجه لبناء حضور رقمي متين</span></h2>
       <p>من الفكرة الأولى إلى الإطلاق، نبني معك كل طبقة من طبقات مشروعك بدقة مهندس واهتمام مصمم.</p>
     </div>
     <div class="cards">
@@ -123,7 +134,7 @@
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow"><span class="eyebrow-dot"></span> طريقة عملنا</div>
-      <h2>أربع خطوات، وأساس ثابت</h2>
+      <h2 class="reveal-mask"><span class="reveal-text">أربع خطوات، وأساس ثابت</span></h2>
       <p>مسار عمل واضح ومتسلسل نتبعه في كل مشروع، خطوة تبني على التي قبلها.</p>
     </div>
     <div class="process-list">
@@ -245,7 +256,7 @@
   </div>
   <div class="wrap content-wrap">
     <div class="eyebrow" style="justify-content:center; margin: 0 auto 16px;"><span class="eyebrow-dot"></span> المعرفة</div>
-    <h2 style="margin-bottom: 24px;">نشارك خبراتنا التقنية والبرمجية</h2>
+    <h2 class="reveal-mask" style="margin-bottom: 24px;"><span class="reveal-text">نشارك خبراتنا التقنية والبرمجية</span></h2>
     <p style="margin: 0 auto 40px; max-width: 600px; color: var(--secondary);">مقالات تقنية متخصصة ورؤى حول تصميم وتطوير المنتجات الرقمية الناجحة، نشاركها معكم في مدونة أسس.</p>
     <div class="blog-btn-wrapper" style="margin: 0 auto;">
       <a href="blog/index.html" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
@@ -269,7 +280,7 @@
   <div class="wrap">
     <div class="section-head" style="margin: 0 auto 40px; text-align: center;">
       <div class="eyebrow" style="justify-content:center; margin-left:auto; margin-right:auto;"><span class="eyebrow-dot"></span> لنبدأ</div>
-      <h2>عندك فكرة؟ خلّها تبدأ بأساس صح</h2>
+      <h2 class="reveal-mask"><span class="reveal-text">عندك فكرة؟ خلّها تبدأ بأساس صح</span></h2>
       <p style="margin: 16px auto 0;">راسلنا وخبرنا عن مشروعك، وسنتواصل معك خلال 24 ساعة لبدء العمل.</p>
     </div>
     

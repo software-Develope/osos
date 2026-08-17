@@ -250,7 +250,7 @@
 
   /* ---------- Process ---------- */
   section.process {
-    background: #e8e8ef;
+    background: var(--bg-process, #e8e8ef);
     padding: 100px 0;
   }
   .process-list {
@@ -770,6 +770,106 @@
     pointer-events: none;
     z-index: 0;
     opacity: 0.6;
+  }
+
+  /* ---------- Dark Theme & Text Reveal ---------- */
+  [data-theme="dark"] {
+    --bg: #060512;          /* Deep rich indigo/black */
+    --bg-process: #09081a;  /* Slightly lighter */
+    --bg-panel: #0c0a22;    /* Dark panel */
+    --white: #13102d;       /* Card backgrounds */
+    --ink: #ffffff;         /* Headings */
+    --text: #d4d1ed;        /* Much more readable header text */
+    --primary: #8c88f2;     
+    --secondary: #b4b1cc;   /* Much more readable paragraph text */
+    --accent: #6c66fa;      /* Vibrant glowing purple for dark mode */
+    --line: rgba(255, 255, 255, 0.08);
+  }
+  
+  /* Protect dark sections from inverting */
+  [data-theme="dark"] footer,
+  [data-theme="dark"] section.stats {
+    background: #060512 !important;
+  }
+  [data-theme="dark"] footer::before {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+  }
+  [data-theme="dark"] .work-panel {
+    background: #13102d !important;
+  }
+  [data-theme="dark"] footer h5,
+  [data-theme="dark"] footer .footer-brand span,
+  [data-theme="dark"] .work-panel h3,
+  [data-theme="dark"] .stat b {
+    color: #ffffff !important;
+  }
+  [data-theme="dark"] header {
+    background: rgba(6, 5, 18, 0.85) !important;
+  }
+  
+  /* Form inputs in Dark Mode */
+  [data-theme="dark"] .form-group input,
+  [data-theme="dark"] .form-group select,
+  [data-theme="dark"] .form-group textarea {
+    background: #100d26;
+    color: #ffffff;
+  }
+  [data-theme="dark"] .form-group input:hover,
+  [data-theme="dark"] .form-group select:hover,
+  [data-theme="dark"] .form-group textarea:hover {
+    background: #161233;
+  }
+  [data-theme="dark"] .form-group input:focus,
+  [data-theme="dark"] .form-group select:focus,
+  [data-theme="dark"] .form-group textarea:focus {
+    background: #060512;
+  }
+
+  /* Smooth color transitions & Hover restoration */
+  body, .card, .process-step, .team-card, .team-avatar, header .nav, .work-panel, footer, .blog-preview-window, section.process {
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  h1, h2, h3, h4, p, span, a {
+    transition: color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease;
+  }
+  /* Exceptions for transition so hover effects don't lag */
+  .btn-primary, .btn-ghost {
+    transition: all 0.25s ease;
+  }
+
+  /* Theme Toggle Button */
+  .theme-toggle {
+    background: transparent;
+    border: none;
+    color: var(--ink);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .theme-toggle:hover {
+    background: var(--line);
+    transform: scale(1.05);
+  }
+
+  /* Text Reveal Mask */
+  .reveal-mask {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding-bottom: 0.35em; /* Add space for Arabic descenders (e.g. ع) */
+    margin-bottom: -0.35em; /* Prevent layout shifting */
+  }
+  .reveal-text {
+    display: inline-block;
+    transform: translateY(120%);
+    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-mask.is-revealed .reveal-text {
+    transform: translateY(0);
   }
 
   /* ---------- Typography & Utility ---------- */

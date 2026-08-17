@@ -86,6 +86,49 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         animateParticles();
     }
+
+    // 5. Dark Mode Toggle
+    const themeToggleBtn = document.querySelector('.theme-toggle');
+    const sunIcon = document.querySelector('.sun-icon');
+    const moonIcon = document.querySelector('.moon-icon');
+
+    if (themeToggleBtn) {
+        // Sync icon on load based on what the <head> script did
+        if (document.documentElement.getAttribute('data-theme') === 'dark') {
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'none';
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+        });
+    }
+
+    // 6. Text Mask Reveal (Intersection Observer)
+    const revealMasks = document.querySelectorAll('.reveal-mask');
+    if (revealMasks.length > 0) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed');
+                    observer.unobserve(entry.target); // Only reveal once
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealMasks.forEach(mask => revealObserver.observe(mask));
+    }
     
     // Bottom Navigation Logic
     const bottomNav = document.getElementById('bottomNav');
